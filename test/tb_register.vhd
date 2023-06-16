@@ -41,6 +41,27 @@ begin
         s_enable  <= '1';
         s_data_in <= X"0000";
         p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+
+        s_data_in <= X"0001";
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+        s_data_in <= X"0002";
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+
+        s_enable  <= '0';
+        s_data_in <= X"0000";
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+        s_data_in <= X"0001";
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+        s_data_in <= X"0002";
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+
         wait;
     end process ; -- TESTING_PROCEDURE
 

@@ -80,6 +80,13 @@ BEGIN
 			-- WHEN [S_TATUAL] is equal to T), the processor must reset all the following variables to their defautl state:
 			-- | variable name | defautl state |
 			-- |  o_externa_sel|   0           |  ... 
+			o_G_enable <= '0';
+			o_external_sel <= '0';
+			o_done <= '0';
+			o_addsub <= '0';
+			o_IR <= '0';
+			o_A <= '0';
+			o_G_select <= '0';
 		ELSE
 
 			-- WHEN  [s_ATUAL] is other than T0, the PROCESSOR must set [o_IR] equal to 0 
@@ -105,6 +112,7 @@ BEGIN
 
 				-- WHEN the struction is set to MVI, the PROCESSOR must set the [o_enable_bus] equal to the target register [s_TargetRegister]
 				o_enable_bus <= s_TargetRegister;
+				o_done <= '1';
 
 				WHEN OTHERS =>
 
@@ -139,6 +147,7 @@ BEGIN
 					o_G_select <= '1';
 					-- targetRegiss_Sourter enable <- HIGH
 					o_enable_bus <= s_TargetRegister;
+					o_done <= '1';
 					----------------- o target register vai receber o barramento (que é o G) -----
 
 					WHEN OTHERS => NULL;

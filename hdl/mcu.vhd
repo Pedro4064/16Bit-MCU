@@ -2,6 +2,17 @@ LIBRARY ieee;
 USE ieee.STD_LOGIC_1164.ALL;
 
 ENTITY mcu IS
+    PORT (
+        -- INPUT PORTS
+        i_external_data_bus : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+        i_clk : IN STD_LOGIC;
+        i_run : IN STD_LOGIC;
+        i_reset_n : IN STD_LOGIC;
+
+        -- OUTPUT PORTS
+        o_output_data_bus : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+        o_done_status : OUT STD_LOGIC);
+
 END mcu;
 
 ARCHITECTURE arch OF mcu IS
@@ -145,4 +156,14 @@ BEGIN
         o_G_select => s_G_select
     );
 
+    -- CONNECT INPUT AND OUTPUT TO SIGNALS
+    s_clk <= i_clk;
+    s_run <= i_run;
+    s_resetn <= i_reset_n;
+    s_Din <= i_external_data_bus;
+
+    o_output_data_bus <= s_BUS;
+    o_done_status <= s_done;
+
+    s_IR_BUS <= i_external_data_bus(15 DOWNTO 7);
 END arch; -- arch

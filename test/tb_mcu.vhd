@@ -47,13 +47,36 @@ BEGIN
     BEGIN
 
         -- TEST FOR MVI
-        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        WAIT FOR 10 ns;
+
         s_external_data_bus <= "0010000000000000";
         p_CLOCK_SIGNAL(o_clock_signal => s_clk);
 
         s_external_data_bus <= X"0001";
         p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+        s_external_data_bus <= "0000010000000000";
         p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+        s_external_data_bus <= "0100000010000000";
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
+        s_external_data_bus <= "0110000010000000";
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+        p_CLOCK_SIGNAL(o_clock_signal => s_clk);
+
         WAIT;
 
     END PROCESS;

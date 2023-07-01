@@ -125,8 +125,9 @@ BEGIN
         i_data_bus_07 => s_data_bus_07,
         i_data_bus_08 => s_G_output,
         i_data_bus_09 => s_Din,
-        i_bus_select => s_sel_bus & s_G_select & s_external_sel
-        -- i_bus_select => "0000000000"
+        i_bus_select => s_external_sel & s_G_select & s_sel_bus,
+
+        o_data_out => s_BUS
     );
 
     -- ADDSUB PORT MAP

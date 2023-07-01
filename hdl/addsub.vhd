@@ -16,7 +16,7 @@ ARCHITECTURE arch OF addsub IS
 	SIGNAL s_result : signed(15 DOWNTO 0);
 BEGIN
 
-	SUB_ADD : PROCESS
+	SUB_ADD : PROCESS (add_sub, dataa, datab)
 	BEGIN
 
 		IF add_sub = '1' THEN

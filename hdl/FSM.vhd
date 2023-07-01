@@ -33,9 +33,9 @@ ARCHITECTURE arch OF FSM IS
 	CONSTANT add : STD_LOGIC_VECTOR(2 DOWNTO 0) := "010";
 	CONSTANT sub : STD_LOGIC_VECTOR(2 DOWNTO 0) := "011";
 
-	SIGNAL s_TargetRegister, s_SourceRegister : STD_LOGIC_VECTOR(7 DOWNTO 0);
-	SIGNAL s_TAtual, s_TProx : TIMMING_STATE;
-	SIGNAL s_Opcode : STD_LOGIC_VECTOR(2 DOWNTO 0);
+	SIGNAL s_TargetRegister, s_SourceRegister : STD_LOGIC_VECTOR(7 DOWNTO 0) := "00000000";
+	SIGNAL s_TAtual, s_TProx : TIMMING_STATE := T0;
+	SIGNAL s_Opcode : STD_LOGIC_VECTOR(2 DOWNTO 0) := "000";
 
 BEGIN
 
@@ -44,21 +44,21 @@ BEGIN
 
 	s_Opcode <= i_IR(8 DOWNTO 6);
 
-	fsm_clock : PROCESS (s_TAtual)
+	fsm_clock : PROCESS (s_TAtual, s_Opcode)
 	BEGIN
 		CASE(s_TAtual) IS
 
 			WHEN T0 =>
 			s_TProx <= T1;
 			WHEN T1 =>
-			IF s_Opcode = mv OR s_Opcode = mvi THEN
-				s_TProx <= T0;
-			ELSIF s_Opcode = add OR s_Opcode = sub THEN
-				s_Tprox <= T2;
+			IF s_Opcode = add OR s_Opcode = sub THEN
+				s_TProx <= T2;
+			ELSE
+				s_Tprox <= T0;
 			END IF;
 			WHEN T2 =>
 			s_TProx <= T3;
-			WHEN T3 =>
+			WHEN OTHERS =>
 			s_TProx <= T0;
 		END CASE;
 	END PROCESS;
@@ -83,10 +83,9 @@ BEGIN
 			o_G_enable <= '0';
 			o_external_sel <= '0';
 			o_done <= '0';
-			o_addsub <= '0';
-			o_IR <= '0';
 			o_A <= '0';
 			o_G_select <= '0';
+
 		ELSE
 
 			-- WHEN  [s_ATUAL] is other than T0, the PROCESSOR must set [o_IR] equal to 0 
@@ -105,6 +104,12 @@ BEGIN
 				-- WHEN the strcution is set to MV, all of the above are done, the PROCESSOR must set the [DONE] Bite to HIGH
 				o_done <= '1';
 
+				-- RESET OTHER VALUES
+				o_G_enable <= '0';
+				o_external_sel <= '0';
+				o_A <= '0';
+				o_G_select <= '0';
+
 				WHEN mvi =>
 
 				-- WHEN the struction is set to MVI, the PROCESSOR must set [o_external_sel] to HIGH
@@ -113,6 +118,11 @@ BEGIN
 				-- WHEN the struction is set to MVI, the PROCESSOR must set the [o_enable_bus] equal to the target register [s_TargetRegister]
 				o_enable_bus <= s_TargetRegister;
 				o_done <= '1';
+
+				-- RESET OTHER VALUES
+				o_G_enable <= '0';
+				o_A <= '0';
+				o_G_select <= '0';
 
 				WHEN OTHERS =>
 
@@ -123,6 +133,7 @@ BEGIN
 					o_sel_bus <= s_TargetRegister;
 					-- A enable <- HIGH
 					o_A <= '1';
+
 					---------------- o que tava no target vai para o A ---------------
 					WHEN T2 =>
 					-- A enable <- LOW

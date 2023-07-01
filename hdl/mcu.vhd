@@ -126,6 +126,7 @@ BEGIN
         i_data_bus_08 => s_G_output,
         i_data_bus_09 => s_Din,
         i_bus_select => s_sel_bus & s_G_select & s_external_sel
+        -- i_bus_select => "0000000000"
     );
 
     -- ADDSUB PORT MAP
@@ -165,5 +166,5 @@ BEGIN
     o_output_data_bus <= s_BUS;
     o_done_status <= s_done;
 
-    s_IR_BUS <= i_external_data_bus(15 DOWNTO 7);
+    -- s_IR_BUS <= i_external_data_bus(15 DOWNTO 7);
 END arch; -- arch

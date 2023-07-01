@@ -21,7 +21,7 @@ ARCHITECTURE arch OF mcu IS
     COMPONENT n_register IS
         GENERIC (
             CONSTANT n : NATURAL
-        )
+        );
         PORT (
             -- INPUT PORTS
             i_clk : IN STD_LOGIC;
@@ -89,21 +89,21 @@ ARCHITECTURE arch OF mcu IS
 BEGIN
 
     -- REGISTER PORT MAPS
-    R0 : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_enable_bus(0), i_data_in => s_BUS, o_data_out => s_data_bus_00);
-    R1 : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_enable_bus(1), i_data_in => s_BUS, o_data_out => s_data_bus_01);
-    R2 : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_enable_bus(2), i_data_in => s_BUS, o_data_out => s_data_bus_02);
-    R3 : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_enable_bus(3), i_data_in => s_BUS, o_data_out => s_data_bus_03);
-    R4 : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_enable_bus(4), i_data_in => s_BUS, o_data_out => s_data_bus_04);
-    R5 : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_enable_bus(5), i_data_in => s_BUS, o_data_out => s_data_bus_05);
-    R6 : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_enable_bus(6), i_data_in => s_BUS, o_data_out => s_data_bus_06);
-    R7 : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_enable_bus(7), i_data_in => s_BUS, o_data_out => s_data_bus_07);
+    R0 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(0), i_data_in => s_BUS, o_data_out => s_data_bus_00);
+    R1 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(1), i_data_in => s_BUS, o_data_out => s_data_bus_01);
+    R2 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(2), i_data_in => s_BUS, o_data_out => s_data_bus_02);
+    R3 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(3), i_data_in => s_BUS, o_data_out => s_data_bus_03);
+    R4 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(4), i_data_in => s_BUS, o_data_out => s_data_bus_04);
+    R5 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(5), i_data_in => s_BUS, o_data_out => s_data_bus_05);
+    R6 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(6), i_data_in => s_BUS, o_data_out => s_data_bus_06);
+    R7 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(7), i_data_in => s_BUS, o_data_out => s_data_bus_07);
 
-    A : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_A, i_data_in => s_BUS, o_data_out => s_A_output);
-    G : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_G_enable, i_data_in => s_ALU_output, o_data_out => s_G_output);
-    IR : n_register PORT GENERIC (16) MAP(i_clk => s_clk, i_enable => s_IR, i_data_in => s_Din, o_data_out => s_IR_bus);
+    A : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_A, i_data_in => s_BUS, o_data_out => s_A_output);
+    G : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_G_enable, i_data_in => s_ALU_output, o_data_out => s_G_output);
+    IR : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_IR, i_data_in => s_Din, o_data_out => s_IR_bus);
 
     -- MUX PORT MAP
-    MUX : mux PORT MAP(
+    MUX1 : mux PORT MAP(
         i_data_bus_00 => s_data_bus_00,
         i_data_bus_01 => s_data_bus_01,
         i_data_bus_02 => s_data_bus_02,
@@ -114,7 +114,7 @@ BEGIN
         i_data_bus_07 => s_data_bus_07,
         i_data_bus_08 => s_G_output,
         i_data_bus_09 => s_Din,
-        i_bus_select => s_sel_bus & s_G_select & s_external_sel;
+        i_bus_select => s_sel_bus & s_G_select & s_external_sel
     );
 
     -- ADDSUB PORT MAP
@@ -131,7 +131,7 @@ BEGIN
         i_clk => s_clk,
         i_run => s_run,
         i_resetn => s_resetn,
-        i_IR => s_IR,
+        i_IR => s_IR_bus,
 
         -- OUTPUT PORTS
         o_enable_bus => s_enable_bus,
@@ -143,6 +143,6 @@ BEGIN
         o_IR => s_IR,
         o_A => s_A,
         o_G_select => s_G_select
-    )
+    );
 
 END arch; -- arch

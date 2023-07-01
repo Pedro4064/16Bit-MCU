@@ -1,32 +1,34 @@
-library ieee;
-use ieee.STD_LOGIC_1164.all;
+LIBRARY ieee;
+USE ieee.STD_LOGIC_1164.ALL;
 
-entity n_register is
-  generic(
-    constant n: natural
+ENTITY n_register IS
+  GENERIC (
+    CONSTANT n : NATURAL
   );
 
-  port (
+  PORT (
     -- INPUT PORTS
-    i_clk: in STD_LOGIC;
-    i_enable: in STD_LOGIC;
-    i_data_in: in STD_LOGIC_VECTOR(n downto 0);
+    i_clk : IN STD_LOGIC;
+    i_enable : IN STD_LOGIC;
+    i_data_in : IN STD_LOGIC_VECTOR(n DOWNTO 0);
 
     -- OUTPUT PORTS
-    o_data_out: out STD_LOGIC_VECTOR(n downto 0)
+    o_data_out : OUT STD_LOGIC_VECTOR(n DOWNTO 0)
   );
-end n_register;
+END n_register;
 
-architecture arch of n_register is
-begin
+ARCHITECTURE arch OF n_register IS
+BEGIN
 
-    RISIN_EDGE_DATA_TRANSFER : process(i_clk, i_enable)
-    begin
+  RISIN_EDGE_DATA_TRANSFER : PROCESS (i_clk, i_enable)
+  BEGIN
 
-        if rising_edge(i_clk) and i_enable = '1' then
-            o_data_out <= i_data_in;
-        end if ;
+    IF (rising_edge(i_clk)) THEN
+      IF (i_enable = '1') THEN
+        o_data_out <= i_data_in;
+      END IF;
+    END IF;
 
-    end process ; -- RISIN_EDGE_DATA_TRANSFER
+  END PROCESS; -- RISIN_EDGE_DATA_TRANSFER
 
-end arch ; -- arch
+END arch; -- arch

@@ -15,7 +15,7 @@ END decodificador_3_8;
 ARCHITECTURE arch OF decodificador_3_8 IS
 BEGIN
 
-  WITH i_bus_select SELECT o_data_out <=
+  WITH i_data_in SELECT o_data_out <=
     "00000001" WHEN "000",
     "00000010" WHEN "001",
     "00000100" WHEN "010",

@@ -1,3 +1,4 @@
+ghdl -a --std=08 hdl/decodificador_3_8.vhd &&
 ghdl -a --std=08 hdl/FSM.vhd &&
 ghdl -a --std=08 hdl/n_register.vhd &&
 ghdl -a --std=08 hdl/mux.vhd &&

@@ -100,18 +100,18 @@ ARCHITECTURE arch OF mcu IS
 BEGIN
 
     -- REGISTER PORT MAPS
-    R0 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(0), i_data_in => s_BUS, o_data_out => s_data_bus_00);
-    R1 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(1), i_data_in => s_BUS, o_data_out => s_data_bus_01);
-    R2 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(2), i_data_in => s_BUS, o_data_out => s_data_bus_02);
-    R3 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(3), i_data_in => s_BUS, o_data_out => s_data_bus_03);
-    R4 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(4), i_data_in => s_BUS, o_data_out => s_data_bus_04);
-    R5 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(5), i_data_in => s_BUS, o_data_out => s_data_bus_05);
-    R6 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(6), i_data_in => s_BUS, o_data_out => s_data_bus_06);
-    R7 : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(7), i_data_in => s_BUS, o_data_out => s_data_bus_07);
+    R0 : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(0), i_data_in => s_BUS, o_data_out => s_data_bus_00);
+    R1 : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(1), i_data_in => s_BUS, o_data_out => s_data_bus_01);
+    R2 : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(2), i_data_in => s_BUS, o_data_out => s_data_bus_02);
+    R3 : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(3), i_data_in => s_BUS, o_data_out => s_data_bus_03);
+    R4 : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(4), i_data_in => s_BUS, o_data_out => s_data_bus_04);
+    R5 : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(5), i_data_in => s_BUS, o_data_out => s_data_bus_05);
+    R6 : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(6), i_data_in => s_BUS, o_data_out => s_data_bus_06);
+    R7 : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_enable_bus(7), i_data_in => s_BUS, o_data_out => s_data_bus_07);
 
-    A : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_A, i_data_in => s_BUS, o_data_out => s_A_output);
-    G : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_G_enable, i_data_in => s_ALU_output, o_data_out => s_G_output);
-    IR : n_register GENERIC MAP(16) PORT MAP(i_clk => s_clk, i_enable => s_IR, i_data_in => s_Din, o_data_out => s_IR_bus);
+    A : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_A, i_data_in => s_BUS, o_data_out => s_A_output);
+    G : n_register GENERIC MAP(15) PORT MAP(i_clk => s_clk, i_enable => s_G_enable, i_data_in => s_ALU_output, o_data_out => s_G_output);
+    IR : n_register GENERIC MAP(8) PORT MAP(i_clk => s_clk, i_enable => s_IR, i_data_in => s_Din(15 DOWNTO 7), o_data_out => s_IR_bus);
 
     -- MUX PORT MAP
     MUX1 : mux PORT MAP(
